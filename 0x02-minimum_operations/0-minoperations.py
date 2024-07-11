@@ -1,28 +1,30 @@
 #!/usr/bin/python3
 
 """
-Module to calculate the minimum number of operations to get exactly n 'H' characters in a file.
+Module to calculate the minimum number of operations to get
+exactly n 'H' characters in a file.
 """
+
 
 def minOperations(n):
     """
-    Calculates the fewest number of operations needed to result in exactly n 'H' characters in the file.
-    
+    Calculates the fewest number of operations needed to result in
+    exactly n 'H' characters in the file
     Args:
         n (int): The target number of 'H' characters.
-        
     Returns:
-        int: The minimum number of operations, or 0 if n is impossible to achieve.
+        int: The minimum number of operations,
+        or 0 if n is impossible to achieve.
     """
     if n < 1:
         return 0
     operations = 0
     factor = 2
-    
+
     while n > 1:
         while n % factor == 0:
             operations += factor
             n //= factor
         factor += 1
-    
+
     return operations
