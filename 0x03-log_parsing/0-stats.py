@@ -31,3 +31,37 @@ def signal_handler(sig, frame):
     """Handle keyboard interrupt signal"""
     print_statistics()
     sys.exit(0)
+
+# Set up signal handler
+signal.signal(signal.SIGINT, signal_handler)
+
+try:
+    for line in sys.stdin:
+        line_count += 1
+        parts = line.split()
+        if len(parts) != 7:
+            continue
+
+        ip, dash, date_bracket, method, url, protocol, status, size = parts
+        if method != '"GET' or url != '/projects/260' or protocol != 'HTTP/1.1"':
+            continue
+
+        # Update total size
+        try:
+            total_size += int(size)
+        except ValueError:
+            continue
+
+        # Update status count
+        if status in status_counts:
+            status_counts[status] += 1
+
+        # Print statistics after every 10 lines
+        if line_count % 10 == 0:
+            print_statistics()
+
+except KeyboardInterrupt:
+    print_statistics()
+    sys.exit(0)
+
+print_statistics()
