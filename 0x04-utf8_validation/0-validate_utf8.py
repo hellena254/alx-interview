@@ -31,7 +31,7 @@ def validUTF8(data):
                 return False
 
         else:
-            if not (int(bin_rep[0]) == 1 and int(bin_rep[1]) == 0):
+            if not (int(bin_rep[0]) == '1' and int(bin_rep[1]) == '0'):
                 return False
 
         n_bytes -= 1
