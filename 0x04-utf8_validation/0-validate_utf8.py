@@ -16,7 +16,7 @@ def validUTF8(data):
 
     for i in data:
         # handle the 8 least significant bits of each integer
-        bin_rep = format(i, '08b')
+        bin_rep = format(i, '#010b')[-8:]
 
         if n_bytes == 0:
             for bit in bin_rep:
