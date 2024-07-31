@@ -8,10 +8,10 @@ import sys
 
 def check_safety(board, row, col, N):
     """
-    check if its safe to place a queen at board[row][col]
+    Check if its safe to place a queen at board[row][col]
     Args:
         board: 2d list rep the board
-	row: rown index
+	row: row index
         col: col index
         N: size of the board
     Return: true if it's safe, false otherwise
@@ -21,7 +21,7 @@ def check_safety(board, row, col, N):
             return False
 
     # check upp diagonal
-    for i, j in zip(range(row, -1, 1), range(col, -1, -1)):
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
         if board[i][j] == 1:
             return False
 
