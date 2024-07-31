@@ -20,7 +20,7 @@ def check_safety(board, row, col, N):
         if board[row][i] == 1:
             return False
 
-    # check upp diagonal
+    # check upper diagonal
     for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
         if board[i][j] == 1:
             return False
