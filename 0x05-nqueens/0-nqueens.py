@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Solving the famous N-Queen problem using backtracking (recursion inside loop)."""
+"""
+Solving the famous N-Queen problem using backtrackin
+"""
 import sys
 
 
@@ -15,11 +17,11 @@ class NQueen:
     def check_safety(self, k, i):
         """
         Check if it's safe to place a queen at position (k, i).
-        
+
         Args:
             k: Current queen number (row index).
             i: Column index.
-        
+
         Returns:
             bool: True if the queen can be placed, False otherwise.
         """
@@ -31,10 +33,10 @@ class NQueen:
     def solve_nqueens(self, k):
         """
         Use backtracking to find all solutions for the N-Queen problem.
-        
+
         Args:
             k: Current queen number (row index).
-        
+
         Returns:
             list: List of all solutions.
         """
