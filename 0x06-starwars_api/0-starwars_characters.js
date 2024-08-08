@@ -2,7 +2,7 @@
 
 const request = require('request');
 
-// Check for Movie ID argument
+// Validate command-line argument
 const movieId = process.argv[2];
 if (!movieId) {
   console.error('Usage: ./0-starwars_characters.js <movie_id>');
@@ -10,25 +10,26 @@ if (!movieId) {
 }
 
 // Fetch movie data
-request('https://swapi-api.hbtn.io/api/films/' + movieId, function (err, res, body) {
+request(`https://swapi-api.hbtn.io/api/films/${movieId}`, function (err, res, body) {
   if (err) {
     console.error('Error fetching movie data:', err);
     process.exit(1);
   }
 
-  const actors = JSON.parse(body).characters;
-  exactOrder(actors, 0);
+  const characterUrls = JSON.parse(body).characters;
+  fetchCharacterNames(characterUrls, 0);
 });
 
-// Recursive function to fetch character names
-const exactOrder = (actors, x) => {
-  if (x === actors.length) return;
-  request(actors[x], function (err, res, body) {
+// Function to recursively fetch and print character names
+const fetchCharacterNames = (urls, index) => {
+  if (index === urls.length) return;
+
+  request(urls[index], function (err, res, body) {
     if (err) {
       console.error('Error fetching character data:', err);
       return;
     }
     console.log(JSON.parse(body).name);
-    exactOrder(actors, x + 1);
+    fetchCharacterNames(urls, index + 1);
   });
 };
