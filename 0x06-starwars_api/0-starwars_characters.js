@@ -2,37 +2,33 @@
 
 const request = require('request');
 
-// get movie id from cmd
+// Check for Movie ID argument
 const movieId = process.argv[2];
+if (!movieId) {
+  console.error('Usage: ./0-starwars_characters.js <movie_id>');
+  process.exit(1);
+}
 
-// URL for star wars API endpoint
-const apiUrl = `https://swapi.dev/api/films/${movieId}/`;
-
-// Fetch movie data from API
-request(apiUrl, (error, response, body) => {
-  if (error) {
-    console.error('Error fetching data:', error);
+// Fetch movie data
+request('https://swapi-api.hbtn.io/api/films/' + movieId, function (err, res, body) {
+  if (err) {
+    console.error('Error fetching movie data:', err);
     process.exit(1);
   }
 
-  const movie = JSON.parse(body);
-
-  // check if char field exists
-  if (!movie.characters) {
-    console.error('Characters not found in the specified movie.');
-    process.exit(1);
-  }
-
-  // fetch and print char names
-  movie.characters.forEach((characterUrl) => {
-    request(characterUrl, (error, response, body) => {
-      if (error) {
-        console.error('Error fetching data:', error);
-	return;
-      }
-
-      const character = JSON.parse(body);
-      console.log(character.name);
-    });
-  });
+  const actors = JSON.parse(body).characters;
+  exactOrder(actors, 0);
 });
+
+// Recursive function to fetch character names
+const exactOrder = (actors, x) => {
+  if (x === actors.length) return;
+  request(actors[x], function (err, res, body) {
+    if (err) {
+      console.error('Error fetching character data:', err);
+      return;
+    }
+    console.log(JSON.parse(body).name);
+    exactOrder(actors, x + 1);
+  });
+};
