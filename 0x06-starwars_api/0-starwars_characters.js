@@ -1,32 +1,38 @@
 #!/usr/bin/node
 
-const fetch = require('node-fetch');
+const request = require('request');
 
-// get the movie id from cmd
+// get movie id from cmd
 const movieId = process.argv[2];
 
-// URL for the star wars api
+// URL for star wars API endpoint
 const apiUrl = `https://swapi.dev/api/films/${movieId}/`;
 
-// fetch movie data from API
-fetch(apiUrl)
-  .then(response => response.json())
-  .then(movie => {
-    // check if char exists
-    if (!movie.characters) {
-      console.error('No character found.');
-      process.exit(1);
-    }
-
-    // fetch and print character names
-    const charPromises = movie.characters.map(charUrl =>
-      fetch(charUrl).then(response => response.json()).then(character => console.log(character.name))
-    );
-
-    // wait for all char requests to complete
-    return Promise.all(charPromises);
-  })
-  .catch(error => {
+// Fetch movie data from API
+request(apiUrl, (error, response, body) => {
+  if (error) {
     console.error('Error fetching data:', error);
     process.exit(1);
+  }
+
+  const movie = JSON.parse(body);
+
+  // check if char field exists
+  if (!movie.characters) {
+    console.error('Characters not found in the specified movie.');
+    process.exit(1);
+  }
+
+  // fetch and print char names
+  movie.characters.forEach((characterUrl) => {
+    request(characterUrl, (error, response, body) => {
+      if (error) {
+        console.error('Error fetching data:', error);
+	return;
+      }
+
+      const character = JSON.parse(body);
+      console.log(character.name);
+    });
   });
+});
