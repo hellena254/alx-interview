@@ -1,6 +1,3 @@
-### README.md
-
-```markdown
 # Star Wars Characters
 
 This Node.js script fetches and displays the names of all characters from a specified Star Wars movie using the Star Wars API.
@@ -13,24 +10,6 @@ The script retrieves a list of characters from a movie based on the Movie ID pro
 
 - Node.js (version 10.14.x)
 - `request` module
-
-## Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/alx-interview/0x06-starwars_api.git
-   cd 0x06-starwars_api
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install request
-   ```
-
-3. **Make the script executable:**
-   ```bash
-   chmod +x 0-starwars_characters.js
-   ```
 
 ## Usage
 
@@ -71,11 +50,6 @@ The script includes error handling for both the initial movie data request and t
 The script makes use of multiple asynchronous requests to fetch each character's details from the URLs provided. It processes each character’s name and prints it to the console.
 
 **How it helps**: By handling asynchronous requests, the script can fetch data from multiple endpoints concurrently without blocking execution, leading to faster and more efficient data retrieval.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
 
 ### Explanation of Key Points
 
