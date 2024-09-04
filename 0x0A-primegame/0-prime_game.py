@@ -17,13 +17,13 @@ def sieve_of_eratosthenes(max_n):
         p += 1
     return [p for p in range(2, max_n + 1) if primes[p]]
 
+
 def isWinner(x, nums):
     """
     Determine the winner after x rounds of the game
     """
     if not nums or x < 1:
         return None
-
 
     max_n = max(nums)
     primes = sieve_of_eratosthenes(max_n)
